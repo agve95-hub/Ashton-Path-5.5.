@@ -1,0 +1,21 @@
+{
+  "short_name": "AshtonPath",
+  "name": "Ashton Path Taper Planner",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0b101b",
+  "background_color": "#0b101b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063205.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063205.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

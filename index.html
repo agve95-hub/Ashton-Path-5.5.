@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b101b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.json">
+    <title>AshtonPath | Taper Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          borderRadius: {
+            'none': '0',
+            'sm': '4px',
+            DEFAULT: '8px',
+            'md': '10px',
+            'lg': '12px',
+            'xl': '16px',
+            '2xl': '20px',
+            '3xl': '24px',
+            'full': '9999px',
+          },
+          extend: {
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'sans-serif'],
+              serif: ['Instrument Serif', 'serif'],
+            },
+            colors: {
+              // Custom Midnight Palette matching the screenshot
+              midnight: {
+                800: '#141c2f', // Card BG
+                900: '#0b101b', // App BG
+                950: '#05080f', // Deepest
+              },
+              brand: {
+                400: '#2dd4bf', // Teal accent
+                500: '#14b8a6',
+                glow: 'rgba(45, 212, 191, 0.15)'
+              },
+              teal: {
+                50: '#f0fdfa',
+                100: '#ccfbf1',
+                200: '#99f6e4',
+                300: '#5eead4',
+                400: '#2dd4bf',
+                500: '#14b8a6',
+                600: '#0d9488',
+                700: '#0f766e',
+                800: '#115e59',
+                900: '#134e4a',
+                950: '#042f2e'
+              },
+              slate: {
+                750: '#2d3748', // Lighter borders
+                850: '#1a202c', // Standard cards
+                900: '#0f172a',
+                950: '#020617'
+              }
+            },
+            boxShadow: {
+              'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.3)',
+              'card': '0 0 0 1px rgba(255,255,255,0.03), 0 4px 12px rgba(0,0,0,0.25)',
+              'glow-teal': '0 0 20px rgba(45, 212, 191, 0.1)',
+              'glow-active': '0 0 0 1px #2dd4bf, 0 0 20px rgba(45, 212, 191, 0.2)'
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+              'blob': 'blob 10s infinite',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              }
+            }
+          },
+          screens: {
+            'xs': '375px',
+            'sm': '640px',
+            'md': '768px', // Tablet starts here
+            'lg': '1024px',
+            'xl': '1280px',
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #0b101b; /* Midnight 900 */
+        color: #f8fafc;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        position: relative;
+        overflow-x: hidden;
+        /* Safe area handling for iPhone X+ */
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #334155;
+      }
+
+      /* Range Inputs */
+      input[type=range] {
+        -webkit-appearance: none; 
+        background: transparent; 
+        height: 100%;
+        width: 100%;
+        position: relative;
+        z-index: 20;
+        cursor: grab;
+      }
+      
+      input[type=range]:active {
+        cursor: grabbing;
+      }
+
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #f8fafc;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        cursor: grab;
+        margin-top: -8px;
+        transition: transform 0.2s;
+      }
+
+      input[type=range]::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+      }
+      
+      /* Helper for Mobile Safari bottom bar */
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 20px);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.475.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <!-- Background Elements -->
+    <div class="fixed inset-0 -z-50 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[128px] mix-blend-screen animate-blob"></div>
+        <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[128px] mix-blend-screen animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-32 left-1/3 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[128px] mix-blend-screen animate-blob animation-delay-4000"></div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
